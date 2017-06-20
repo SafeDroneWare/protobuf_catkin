@@ -8,4 +8,5 @@
 
   <buildtool_depend>catkin</buildtool_depend>
   <buildtool_depend>autoconf</buildtool_depend>
+  <buildtool_depend>libtool</buildtool_depend>
 </package>
