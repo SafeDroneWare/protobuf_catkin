@@ -3,33 +3,33 @@ project(protobuf_catkin)
 
 find_package(catkin REQUIRED)
 catkin_package(
-  INCLUDE_DIRS ${CATKIN_DEVEL_PREFIX}/include
+#  INCLUDE_DIRS ${CATKIN_DEVEL_PREFIX}/include
   CFG_EXTRAS protobuf-generate-cpp.cmake protobuf-extras.cmake
 )
 
-include(ExternalProject)
+#include(ExternalProject)
 
-file(MAKE_DIRECTORY ${CATKIN_DEVEL_PREFIX}/include)
+#file(MAKE_DIRECTORY ${CATKIN_DEVEL_PREFIX}/include)
 
-ExternalProject_Add(protobuf_src
-  URL https://github.com/google/protobuf/releases/download/v2.6.1/protobuf-2.6.1.tar.gz
-  UPDATE_COMMAND ""
-  PATCH_COMMAND patch -p0 < ${CMAKE_SOURCE_DIR}/unused_parameter_warnings.patch &&
-                patch -p0 < ${CMAKE_SOURCE_DIR}/unused_parameter_warnings_wire_format.patch
-  CONFIGURE_COMMAND cd ../protobuf_src && ./autogen.sh && ./configure --with-pic --prefix=${CATKIN_DEVEL_PREFIX}
-  BUILD_COMMAND cd ../protobuf_src && make -j8
-  INSTALL_COMMAND cd ../protobuf_src && make install -j8
-)
+#ExternalProject_Add(protobuf_src
+#  URL https://github.com/google/protobuf/releases/download/v2.6.1/protobuf-2.6.1.tar.gz
+#  UPDATE_COMMAND ""
+#  PATCH_COMMAND patch -p0 < ${CMAKE_SOURCE_DIR}/unused_parameter_warnings.patch &&
+#                patch -p0 < ${CMAKE_SOURCE_DIR}/unused_parameter_warnings_wire_format.patch
+#  CONFIGURE_COMMAND cd ../protobuf_src && ./autogen.sh && ./configure --with-pic --prefix=${CATKIN_DEVEL_PREFIX}
+#  BUILD_COMMAND cd ../protobuf_src && make -j8
+#  INSTALL_COMMAND cd ../protobuf_src && make install -j8
+#)
 
-add_library(${PROJECT_NAME} src/dependency_tracker.cc)
-add_dependencies(${PROJECT_NAME} protobuf_src)
-target_link_libraries(${PROJECT_NAME}
-  ${CATKIN_DEVEL_PREFIX}/lib/libprotobuf-lite${CMAKE_SHARED_LIBRARY_SUFFIX}
-  ${CATKIN_DEVEL_PREFIX}/lib/libprotoc${CMAKE_SHARED_LIBRARY_SUFFIX}
-  ${CATKIN_DEVEL_PREFIX}/lib/libprotobuf${CMAKE_SHARED_LIBRARY_SUFFIX})
-
-install(TARGETS ${PROJECT_NAME}
-  ARCHIVE DESTINATION ${CATKIN_PACKAGE_LIB_DESTINATION}
-  LIBRARY DESTINATION ${CATKIN_PACKAGE_LIB_DESTINATION}
-  RUNTIME DESTINATION ${CATKIN_PACKAGE_BIN_DESTINATION}
-)
+#add_library(${PROJECT_NAME} src/dependency_tracker.cc)
+#add_dependencies(${PROJECT_NAME} protobuf_src)
+#target_link_libraries(${PROJECT_NAME}
+#  ${CATKIN_DEVEL_PREFIX}/lib/libprotobuf-lite${CMAKE_SHARED_LIBRARY_SUFFIX}
+#  ${CATKIN_DEVEL_PREFIX}/lib/libprotoc${CMAKE_SHARED_LIBRARY_SUFFIX}
+#  ${CATKIN_DEVEL_PREFIX}/lib/libprotobuf${CMAKE_SHARED_LIBRARY_SUFFIX})
+#
+#install(TARGETS ${PROJECT_NAME}
+#  ARCHIVE DESTINATION ${CATKIN_PACKAGE_LIB_DESTINATION}
+#  LIBRARY DESTINATION ${CATKIN_PACKAGE_LIB_DESTINATION}
+#  RUNTIME DESTINATION ${CATKIN_PACKAGE_BIN_DESTINATION}
+#)
