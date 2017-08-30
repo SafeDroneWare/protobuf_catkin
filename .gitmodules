@@ -1,0 +1,4 @@
+[submodule "protobuf"]
+	path = protobuf
+	url = ../protobuf.git
+	branch = safedroneware-3.4.x
