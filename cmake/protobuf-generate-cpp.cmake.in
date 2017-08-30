@@ -13,6 +13,19 @@
 # (To distribute this file outside of CMake, substitute the full
 #  License text for the above reference.)
 
+macro(_protobuf_catkin_generate_include_path _protobuf_include_path)
+  set(_protobuf_include_path)
+  # Create an include path for each file specified
+  foreach(FIL ${ARGN})
+    get_filename_component(ABS_FIL ${FIL} ABSOLUTE)
+    get_filename_component(ABS_PATH ${ABS_FIL} PATH)
+    list(FIND _protobuf_include_path ${ABS_PATH} _contains_already)
+    if(${_contains_already} EQUAL -1)
+      list(APPEND _protobuf_include_path -I ${ABS_PATH})
+    endif()
+  endforeach()
+endmacro()
+
 function(PROTOBUF_CATKIN_GENERATE_CPP SRCS HDRS)
   if(NOT ARGN)
     message(SEND_ERROR "Error: PROTOBUF_CATKIN_GENERATE_CPP() called without any proto files")
@@ -20,15 +33,7 @@ function(PROTOBUF_CATKIN_GENERATE_CPP SRCS HDRS)
   endif(NOT ARGN)
 
   if(PROTOBUF_GENERATE_CPP_APPEND_PATH)
-    # Create an include path for each file specified
-    foreach(FIL ${ARGN})
-      get_filename_component(ABS_FIL ${FIL} ABSOLUTE)
-      get_filename_component(ABS_PATH ${ABS_FIL} PATH)
-      list(FIND _protobuf_include_path ${ABS_PATH} _contains_already)
-      if(${_contains_already} EQUAL -1)
-          list(APPEND _protobuf_include_path -I ${ABS_PATH})
-      endif()
-    endforeach()
+    _protobuf_catkin_generate_include_path(_protobuf_include_path ${ARGN})
   else()
     set(_protobuf_include_path -I ${CMAKE_CURRENT_SOURCE_DIR})
   endif()

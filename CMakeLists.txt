@@ -1,11 +1,14 @@
 cmake_minimum_required(VERSION 2.8.12)
 project(protobuf_catkin)
 
+## Find catkin macros and libraries
+## if COMPONENTS list like find_package(catkin REQUIRED COMPONENTS xyz)
+## is used, also find other catkin packages
 find_package(catkin REQUIRED)
 
 # Build options
 catkin_package_xml()
-set(protobuf_VERSION ${${PROJECT_NAME}_VERSION})  # set by catkin_package()
+set(protobuf_VERSION ${${PROJECT_NAME}_VERSION})  # set by catkin_package_xml()
 set(protobuf_SOVERSION 14)  # from protobuf/src/Makefile.am
 set(protobuf_CMAKE_ARGS
   #-Dprotobuf_VERSION=${protobuf_VERSION}  # would case CMake warning if policy CMP0048 is not set
@@ -15,6 +18,8 @@ set(protobuf_CMAKE_ARGS
   -DCMAKE_BUILD_TYPE=${CMAKE_BUILD_TYPE}
 )
 
+include(ExternalProject)
+
 ###################################
 ## catkin specific configuration ##
 ###################################
@@ -22,11 +27,10 @@ catkin_package(
   CFG_EXTRAS protobuf-generate-cpp.cmake protobuf-extras.cmake
 )
 
-include(ExternalProject)
-
 ##############
 ## Download ##
 ##############
+
 if(EXISTS "${CMAKE_CURRENT_SOURCE_DIR}/protobuf/cmake/CMakeLists.txt")
   set(protobuf_SOURCE_DIR "${CMAKE_CURRENT_SOURCE_DIR}/protobuf")
   add_custom_target(protobuf_src COMMENT "Using protobuf from submodule in ${protobuf_SOURCE_DIR}. Skipping download step.")
