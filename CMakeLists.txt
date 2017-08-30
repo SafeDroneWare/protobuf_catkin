@@ -8,7 +8,7 @@ catkin_package_xml()
 set(protobuf_VERSION ${${PROJECT_NAME}_VERSION})  # set by catkin_package()
 set(protobuf_SOVERSION 14)  # from protobuf/src/Makefile.am
 set(protobuf_CMAKE_ARGS
-  -Dprotobuf_VERSION=${protobuf_VERSION}
+  #-Dprotobuf_VERSION=${protobuf_VERSION}  # would case CMake warning if policy CMP0048 is not set
   -Dprotobuf_SOVERSION=${protobuf_SOVERSION}
   -Dprotobuf_BUILD_TESTS=OFF
   -DBUILD_SHARED_LIBS=ON
