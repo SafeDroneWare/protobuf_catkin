@@ -7,3 +7,9 @@ set(@PROJECT_NAME@_LIBRARIES
   @CATKIN_DEVEL_PREFIX@/lib/libprotoc${CMAKE_SHARED_LIBRARY_SUFFIX}.@protobuf_SOVERSION@
   @CATKIN_DEVEL_PREFIX@/lib/libprotobuf${CMAKE_SHARED_LIBRARY_SUFFIX}.@protobuf_SOVERSION@
 )
+
+find_program(protoc_PROGRAM
+  NAMES protoc
+  PATHS ${@PROJECT_NAME@_DIR}/../../../bin
+  NO_DEFAULT_PATH
+)
