@@ -16,6 +16,7 @@ set(protobuf_CMAKE_ARGS
   -Dprotobuf_BUILD_TESTS=OFF
   -DBUILD_SHARED_LIBS=ON
   -DCMAKE_BUILD_TYPE=${CMAKE_BUILD_TYPE}
+  -DCMAKE_INSTALL_LIBDIR=lib
 )
 
 include(ExternalProject)
